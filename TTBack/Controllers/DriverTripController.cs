@@ -36,7 +36,7 @@ namespace TTBack.Controllers
             return Ok(trip);
         }
 
-        [HttpGet]
+        [HttpGet("getAllTrips")]
         public async Task<IActionResult> GetAllTrip()
         {
             if (_context.Trips == null)

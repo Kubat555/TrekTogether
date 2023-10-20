@@ -11,6 +11,17 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<TrekTogetherContext>();
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy", builder =>
+    {
+        builder
+            .WithOrigins("exp://192.168.178.14:4455") // Замените на ваш домен
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+// для запуска используй в консоли dotnet run --urls=http://192.168.178.14:5077
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -25,8 +36,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
+app.UseCors("MyCorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

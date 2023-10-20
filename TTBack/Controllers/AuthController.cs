@@ -41,7 +41,8 @@ public class AuthController : ControllerBase
         {
             Name = registrationDto.Name,
             Password = registrationDto.Password,
-            PhoneNumber = registrationDto.PhoneNumber
+            PhoneNumber = registrationDto.PhoneNumber,
+            IsDriver = registrationDto.IsDriver
         };
 
         // Хеширование пароля
@@ -56,7 +57,7 @@ public class AuthController : ControllerBase
 
 
     [HttpPost("login")]
-    [ProducesResponseType(200, Type = typeof(User))]
+    [ProducesResponseType(200, Type = typeof(UserDto))]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
         if (loginDto == null)
