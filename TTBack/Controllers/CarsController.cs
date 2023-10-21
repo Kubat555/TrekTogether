@@ -32,14 +32,14 @@ namespace TTBack.Controllers
         }
 
         // GET: api/Cars/5
-        [HttpGet("{id}")]
+        [HttpGet("user/{id}")]
         public async Task<ActionResult<Car>> GetCar(int id)
         {
           if (_context.Cars == null)
           {
               return NotFound();
           }
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _context.Cars.Where(c => c.UserId == id).FirstOrDefaultAsync();
 
             if (car == null)
             {
@@ -49,8 +49,7 @@ namespace TTBack.Controllers
             return car;
         }
 
-        // PUT: api/Cars/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCar(int id, Car car)
         {
@@ -80,8 +79,7 @@ namespace TTBack.Controllers
             return NoContent();
         }
 
-        // POST: api/Cars
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
         public async Task<ActionResult<Car>> PostCar(Car car)
         {
@@ -95,7 +93,7 @@ namespace TTBack.Controllers
             return CreatedAtAction("GetCar", new { id = car.Id }, car);
         }
 
-        // DELETE: api/Cars/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCar(int id)
         {

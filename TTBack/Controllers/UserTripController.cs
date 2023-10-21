@@ -78,9 +78,9 @@ namespace TTBack.Controllers
         }
 
 
-        [HttpPost("AddToTrip")]
+        [HttpPost("addUserToTrip")]
         [ProducesResponseType(201)]
-        public async Task<IActionResult> Register([FromBody] UserTripDto userTripDto)
+        public async Task<IActionResult> AddUserToTrip([FromBody] UserTripDto userTripDto)
         {
             if (userTripDto == null)
             {
@@ -90,7 +90,7 @@ namespace TTBack.Controllers
             // Проверка наличия
             if (await _context.UserTrips.AnyAsync(u => u.UserId == userTripDto.UserId && u.TripId == userTripDto.TripId))
             {
-                return BadRequest("Такая поездка уже есть Шизик!");
+                return BadRequest("Такая поездка у пользователя уже есть Шизик!");
             }
             //var userTrip = _mapper.Map<UserTrip>(userTripDto);
 
@@ -106,7 +106,7 @@ namespace TTBack.Controllers
 
             //здесь должно быть изменение количества доступных мест в поездке
 
-            return Ok("Поездка успешно добавлена, работай Шизик!!");
+            return Ok("Пользователь успешно добавлен к поездке, работай Шизик!!");
         }
     }
 }

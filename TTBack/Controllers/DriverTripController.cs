@@ -18,8 +18,7 @@ namespace TTBack.Controllers
 
 
 
-        // GET: api/Trips/5
-        [HttpGet("{id}")]
+        [HttpGet("driver/{id}")]
         public async Task<IActionResult> GetTrip(int id)
         {
             if (_context.Trips == null)
@@ -36,21 +35,5 @@ namespace TTBack.Controllers
             return Ok(trip);
         }
 
-        [HttpGet("getAllTrips")]
-        public async Task<IActionResult> GetAllTrip()
-        {
-            if (_context.Trips == null)
-            {
-                return NotFound();
-            }
-            var trips = await _context.Trips.ToListAsync();
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            return Ok(trips);
-        }
     }
 }

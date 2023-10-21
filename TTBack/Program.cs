@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("MyCorsPolicy", builder =>
     {
         builder
-            .WithOrigins("exp://192.168.178.14:4455") // Замените на ваш домен
+            .WithOrigins("*") // Замените на ваш домен
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

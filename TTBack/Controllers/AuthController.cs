@@ -42,7 +42,8 @@ public class AuthController : ControllerBase
             Name = registrationDto.Name,
             Password = registrationDto.Password,
             PhoneNumber = registrationDto.PhoneNumber,
-            IsDriver = registrationDto.IsDriver
+            IsDriver = registrationDto.IsDriver,
+            Rating = registrationDto.Rating
         };
 
         // Хеширование пароля

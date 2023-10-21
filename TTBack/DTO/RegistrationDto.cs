@@ -6,5 +6,6 @@
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsDriver { get; set; }
+        public int Rating { get; set; }
     }
 }
