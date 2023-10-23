@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TTBack.Models;
 
@@ -11,9 +12,10 @@ using TTBack.Models;
 namespace TTBack.Migrations
 {
     [DbContext(typeof(TrekTogetherContext))]
-    partial class TrekTogetherContextModelSnapshot : ModelSnapshot
+    [Migration("20231023153511_addCarToTrip")]
+    partial class addCarToTrip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

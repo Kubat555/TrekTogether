@@ -12,8 +12,10 @@ namespace TTBack.Models
         public int? Price { get; set; }
         public int? AvailableSeats { get; set; }
         public int? DriverId { get; set; }
+        public int? CarId { get; set; }
 
         public ICollection<UserTrip> UserTrips { get; set; }
         public User? Driver;
+        public Car? Car;
     }
 }

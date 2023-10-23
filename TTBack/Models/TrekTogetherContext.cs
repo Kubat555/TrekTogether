@@ -102,6 +102,11 @@ namespace TTBack.Models
                     .WithMany(p => p.Trips)
                     .HasForeignKey(d => d.DriverId)
                     .HasConstraintName("FK_Trip_User");
+
+                entity.HasOne(d => d.Car)
+                    .WithMany(p => p.Trips)
+                    .HasForeignKey(d => d.CarId)
+                    .HasConstraintName("FK_Trip_Car");
             });
 
             modelBuilder.Entity<User>(entity =>
