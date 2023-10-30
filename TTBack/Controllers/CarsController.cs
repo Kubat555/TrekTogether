@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TTBack.DTO;
 using TTBack.Models;
 
 namespace TTBack.Controllers
@@ -32,21 +33,21 @@ namespace TTBack.Controllers
         }
 
         // GET: api/Cars/5
-        [HttpGet("user/{id}")]
-        public async Task<ActionResult<Car>> GetCar(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCarById(int id)
         {
           if (_context.Cars == null)
           {
               return NotFound();
           }
-            var car = await _context.Cars.Where(c => c.UserId == id).FirstOrDefaultAsync();
+            var car = _context.Cars.Where(c => c.Id == id).FirstOrDefault();
 
             if (car == null)
             {
                 return NotFound();
             }
 
-            return car;
+            return Ok(car);
         }
 
 
@@ -81,17 +82,32 @@ namespace TTBack.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Car>> PostCar(Car car)
+        [ProducesResponseType(201)]
+        public async Task<IActionResult> PostCar([FromBody] CarRegistrationDto car)
         {
-          if (_context.Cars == null)
-          {
-              return Problem("Entity set 'TrekTogetherContext.Cars'  is null.");
-          }
-            _context.Cars.Add(car);
+            if (_context.Cars == null)
+            {
+                return Problem("Entity set 'TrekTogetherContext.Cars' is null.");
+            }
+
+            var newCar = new Car()
+            {
+                Name = car.Name,
+                CarMake = car.CarMake,
+                CarModel = car.CarModel,
+                CarYear = car.CarYear,
+                UserId = car.UserId
+            };
+
+            _context.Cars.Add(newCar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCar", new { id = car.Id }, car);
+            // Создаем URL для нового ресурса (автомобиля)
+            var url = Url.Action("GetCarById", new { id = newCar.Id });
+
+            return Created(url, newCar);
         }
+
 
 
         [HttpDelete("{id}")]

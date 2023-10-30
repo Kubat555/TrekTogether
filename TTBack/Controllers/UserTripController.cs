@@ -87,24 +87,37 @@ namespace TTBack.Controllers
                 return BadRequest("Invalid data");
             }
 
-            // Проверка наличия
-            if (await _context.UserTrips.AnyAsync(u => u.UserId == userTripDto.UserId && u.TripId == userTripDto.TripId))
+            // Найдем поездку, к которой был добавлен пассажир
+            var trip = _context.Trips.FirstOrDefault(t => t.Id == userTripDto.TripId);
+
+            if (trip != null && trip.AvailableSeats > 0)
             {
-                return BadRequest("Такая поездка у пользователя уже есть Шизик!");
+                // Уменьшим количество доступных мест на 1
+                trip.AvailableSeats--;
+
+                // Сохраняем изменения в базе данных
+                await _context.SaveChangesAsync();
+
+
+                if (await _context.UserTrips.AnyAsync(u => u.UserId == userTripDto.UserId && u.TripId == userTripDto.TripId))
+                {
+                    return BadRequest("Такая поездка у пользователя уже есть Шизик!");
+                }
+
+                var userTrip2 = new UserTrip
+                {
+                    UserId = userTripDto.UserId,
+                    TripId = userTripDto.TripId
+                };
+
+                _context.UserTrips.Add(userTrip2);
+                await _context.SaveChangesAsync();
             }
-            //var userTrip = _mapper.Map<UserTrip>(userTripDto);
-
-            var userTrip2 = new UserTrip
+            else
             {
-                UserId = userTripDto.UserId,
-                TripId = userTripDto.TripId
-            };
+                BadRequest("Место в поездке НЕ ОСТАЛОСЬ или поездка не найдена!");
+            }
 
-            _context.UserTrips.Add(userTrip2);
-            await _context.SaveChangesAsync();
-
-
-            //здесь должно быть изменение количества доступных мест в поездке
 
             return Ok("Пользователь успешно добавлен к поездке, работай Шизик!!");
         }
