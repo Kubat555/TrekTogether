@@ -94,7 +94,7 @@ namespace TTBack.Controllers
                     DriverRating = trip.Driver.Rating,
                     CarId = trip.CarId,
                     CarName = trip.Car.Name,
-                    CarMake = trip.Car.CarMake,
+                    CarGosNomer = trip.Car.GosNomer,
                     CarModel = trip.Car.CarModel,
                     CarYear = trip.Car.CarYear
                 });
@@ -130,3 +130,6 @@ namespace TTBack.Controllers
         }
     }
 }
+
+
+

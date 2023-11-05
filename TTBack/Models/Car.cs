@@ -7,9 +7,10 @@ namespace TTBack.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public string? CarMake { get; set; }
+        public string? GosNomer { get; set; }
         public string? CarModel { get; set; }
         public string? CarYear { get; set; }
+
         public int? UserId { get; set; }
 
         public virtual User? User { get; set; }

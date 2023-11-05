@@ -51,9 +51,9 @@ namespace TTBack.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.CarMake)
+                entity.Property(e => e.GosNomer)
                     .HasMaxLength(50)
-                    .HasColumnName("carMake");
+                    .HasColumnName("gosNomer");
 
                 entity.Property(e => e.CarModel)
                     .HasMaxLength(50)

@@ -93,7 +93,7 @@ namespace TTBack.Controllers
             var newCar = new Car()
             {
                 Name = car.Name,
-                CarMake = car.CarMake,
+                GosNomer = car.GosNomer,
                 CarModel = car.CarModel,
                 CarYear = car.CarYear,
                 UserId = car.UserId

@@ -104,18 +104,14 @@ namespace TTBack.Controllers
                     return BadRequest("Такая поездка у пользователя уже есть Шизик!");
                 }
 
-                var userTrip2 = new UserTrip
-                {
-                    UserId = userTripDto.UserId,
-                    TripId = userTripDto.TripId
-                };
+                var userTrip = _mapper.Map<UserTrip>(userTripDto);
 
-                _context.UserTrips.Add(userTrip2);
+                _context.UserTrips.Add(userTrip);
                 await _context.SaveChangesAsync();
             }
             else
             {
-                BadRequest("Место в поездке НЕ ОСТАЛОСЬ или поездка не найдена!");
+                return BadRequest("Место в поездке НЕ ОСТАЛОСЬ или поездка не найдена!");
             }
 
 

@@ -14,7 +14,7 @@
         public int? DriverRating { get; set; }
         public int? CarId { get; set; }
         public string? CarName { get; set; }
-        public string? CarMake { get; set; }
+        public string? CarGosNomer { get; set; }
         public string? CarModel { get; set; }
         public string? CarYear { get; set; }
     }

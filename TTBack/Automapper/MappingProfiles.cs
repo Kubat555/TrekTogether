@@ -9,7 +9,7 @@ namespace TTBack.Automapper
         public MappingProfiles()
         {
             CreateMap<User, UserDto>();
-            CreateMap<UserTrip, UserTripDto>();
+            CreateMap<UserTripDto, UserTrip>();
             CreateMap<Trip, TripDto>();
             CreateMap<Car, CarRegistrationDto>();
         }
