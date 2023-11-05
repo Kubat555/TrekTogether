@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TTBack.DTO;
+using TTBack.Interface;
 using TTBack.Models;
+using TTBack.Services;
 
 namespace TTBack.Controllers
 {
@@ -13,11 +15,13 @@ namespace TTBack.Controllers
     {
         private readonly TrekTogetherContext _context;
         private readonly IMapper _mapper;
+        private readonly ITripService _tripService;
 
-        public TripController(TrekTogetherContext context, IMapper mapper)
+        public TripController(TrekTogetherContext context, IMapper mapper, ITripService tripService)
         {
             _context = context;
             _mapper = mapper;
+            _tripService = tripService;
         }
 
         [HttpGet]
@@ -123,8 +127,15 @@ namespace TTBack.Controllers
                 CarId = TripDto.CarId
             };
 
-            _context.Trips.Add(trip);
-            await _context.SaveChangesAsync();
+            await _tripService.AddNewTripAsync(trip);
+
+            var userTrip = new UserTrip
+            {
+                UserId = (int)trip.DriverId,
+                TripId = trip.Id
+            };
+
+            await _tripService.AddUserToTripAsync(userTrip);
 
             return Ok("Поездка успешно добавлена, работай Шизик!!");
         }

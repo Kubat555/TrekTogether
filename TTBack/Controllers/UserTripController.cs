@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TTBack.DTO;
+using TTBack.Interface;
 using TTBack.Models;
 
 namespace TTBack.Controllers
@@ -13,11 +14,13 @@ namespace TTBack.Controllers
     {
         private readonly TrekTogetherContext _context;
         private readonly IMapper _mapper;
+        private readonly ITripService _tripService;
 
-        public UserTripController(TrekTogetherContext context, IMapper mapper)
+        public UserTripController(TrekTogetherContext context, IMapper mapper, ITripService tripService)
         {
             _context = context;
             _mapper = mapper;
+            _tripService = tripService;
         }
 
         [HttpGet("getAllUserTrips")]
@@ -60,21 +63,36 @@ namespace TTBack.Controllers
 
 
         [HttpGet("trip/{UserId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Trip>))]
-        public IActionResult GetOnlyTrips(int UserId)
+        [ProducesResponseType(200, Type = typeof(IEnumerable<TripInfoDto>))]
+        public IActionResult GetTripsInfo(int UserId)
         {
             if (_context.UserTrips == null)
             {
                 return BadRequest("Ошибка с базой данных при подключении!");
             }
-            var trips = _context.UserTrips.Where(t => t.UserId == UserId).Select(t => t.Trip).ToList();
+
+            var trips = _context.UserTrips
+             .AsNoTracking()
+            .Where(t => t.UserId == UserId)
+            .Include(t => t.Trip)
+            .Include(t => t.Trip.Car)
+            .Include(t => t.Trip.Driver)
+            .ToList();
+
+            var tripsInfo = trips.Select(t => new TripInfoDto
+            {
+                trip = t.Trip,
+                users = _tripService.GetUsersOfTrip(t.Trip.Id, t.Trip.DriverId),
+                car = t.Trip.Car,
+                driver = _mapper.Map<UserDto>(t.Trip.Driver)
+            }).ToList();
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return Ok(trips);
+            return Ok(tripsInfo);
         }
 
 

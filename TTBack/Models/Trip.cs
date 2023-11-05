@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TTBack.Models
 {
@@ -14,6 +15,7 @@ namespace TTBack.Models
         public int? DriverId { get; set; }
         public int? CarId { get; set; }
 
+        [JsonIgnore]
         public ICollection<UserTrip> UserTrips { get; set; }
         public User? Driver;
         public Car? Car;

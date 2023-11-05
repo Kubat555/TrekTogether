@@ -53,7 +53,7 @@ namespace TTBack.Models
 
                 entity.Property(e => e.GosNomer)
                     .HasMaxLength(50)
-                    .HasColumnName("gosNomer");
+                    .HasColumnName("carMake"); // Кажется в базе он остался как carMake ну а тут он GosNomer. Прикольно, наверное оставлю так)) ^_^, Но пожалуй так делать не советую. Сам себе комментарии пишу, ахах))
 
                 entity.Property(e => e.CarModel)
                     .HasMaxLength(50)

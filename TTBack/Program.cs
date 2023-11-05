@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TTBack.Interface;
 using TTBack.Models;
+using TTBack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IPasswordHasher<User>, MyPasswordHasher>();
+builder.Services.AddTransient<ITripService, TripService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.

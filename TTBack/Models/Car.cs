@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace TTBack.Models
@@ -13,7 +14,9 @@ namespace TTBack.Models
 
         public int? UserId { get; set; }
 
+        [JsonIgnore]
         public virtual User? User { get; set; }
-        public ICollection<Trip>? Trips { get; set; }
+        [JsonIgnore]
+        public ICollection<Trip>? Trips;
     }
 }
