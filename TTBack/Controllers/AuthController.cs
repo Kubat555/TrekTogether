@@ -11,7 +11,7 @@ using TTBack.Models;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly TrekTogetherContext _context; // Здесь используйте ваш контекст базы данных
+    private readonly TrekTogetherContext _context; 
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly IMapper _mapper;
 
@@ -85,4 +85,24 @@ public class AuthController : ControllerBase
         return BadRequest("Invalid password");
     }
 
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        if (_context.Users == null)
+        {
+            return NotFound("Таблица не найдена");
+        }
+
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return NotFound("Пользователь не найден");
+        }
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return Ok("Пользователь удалён!");
+    }
 }

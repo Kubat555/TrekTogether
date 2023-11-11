@@ -139,6 +139,35 @@ namespace TTBack.Controllers
 
             return Ok("Поездка успешно добавлена, работай Шизик!!");
         }
+
+        [HttpDelete("deleteTrip/{id}")]
+        public async Task<IActionResult> DeleteTrip(int id)
+        {
+            try
+            {
+                if (_context.Trips == null)
+                {
+                    return NotFound("Trips table not found");
+                }
+
+                var trip = await _context.Trips.FindAsync(id);
+
+                if (trip == null)
+                {
+                    return NotFound("Trip not found");
+                }
+
+                _context.Trips.Remove(trip);
+                await _context.SaveChangesAsync();
+
+                return Ok("Trip deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
     }
 }
 

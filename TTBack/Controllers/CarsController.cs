@@ -113,21 +113,31 @@ namespace TTBack.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCar(int id)
         {
-            if (_context.Cars == null)
+            try
             {
-                return NotFound();
+                if (_context.Cars == null)
+                {
+                    return NotFound("Cars table not found");
+                }
+
+                var car = await _context.Cars.FindAsync(id);
+
+                if (car == null)
+                {
+                    return NotFound("Car not found");
+                }
+
+                _context.Cars.Remove(car);
+                await _context.SaveChangesAsync();
+
+                return Ok("Car deleted successfully");
             }
-            var car = await _context.Cars.FindAsync(id);
-            if (car == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, "Internal server error");
             }
-
-            _context.Cars.Remove(car);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
+
 
         private bool CarExists(int id)
         {
