@@ -249,3 +249,8 @@ E:\Education\TrekTogether\TTBack\TTBack\bin\Debug\net6.0\Microsoft.Extensions.Id
 E:\Education\TrekTogether\TTBack\TTBack\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 E:\Education\TrekTogether\TTBack\TTBack\bin\Debug\net6.0\AutoMapper.dll
 E:\Education\TrekTogether\TTBack\TTBack\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\Education\TrekTogether\TTBack\TTBack\obj\Debug\net6.0\staticwebassets\msbuild.TTBack.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Education\TrekTogether\TTBack\TTBack\obj\Debug\net6.0\staticwebassets\msbuild.build.TTBack.props
+E:\Education\TrekTogether\TTBack\TTBack\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.TTBack.props
+E:\Education\TrekTogether\TTBack\TTBack\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.TTBack.props
+E:\Education\TrekTogether\TTBack\TTBack\obj\Debug\net6.0\staticwebassets.pack.json

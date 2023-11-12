@@ -11,7 +11,9 @@ builder.Services.AddTransient<ITripService, TripService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
-builder.Services.AddDbContext<TrekTogetherContext>();
+//var sqlConnection = builder.Configuration["ConnectionString:TTBack:SqlDb"];
+var sqlConnection = builder.Configuration.GetConnectionString("TTBack");
+builder.Services.AddSqlServer<TrekTogetherContext>(sqlConnection, options => options.EnableRetryOnFailure());
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -32,12 +34,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 //app.UseHttpsRedirection();
 
