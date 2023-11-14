@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TTBack.DTO;
+using TTBack.Interface;
 using TTBack.Models;
+using TTBack.Services;
 
 namespace TTBack.Controllers
 {
@@ -15,10 +17,12 @@ namespace TTBack.Controllers
     public class CarsController : ControllerBase
     {
         private readonly TrekTogetherContext _context;
+        private readonly ITripService _tripService;
 
-        public CarsController(TrekTogetherContext context)
+        public CarsController(TrekTogetherContext context, ITripService tripService)
         {
             _context = context;
+            _tripService = tripService;
         }
 
         // GET: api/Cars
@@ -85,9 +89,14 @@ namespace TTBack.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> PostCar([FromBody] CarRegistrationDto car)
         {
-            if (_context.Cars == null)
+            if (_context.Cars == null || car.UserId == null)
             {
-                return Problem("Entity set 'TrekTogetherContext.Cars' is null.");
+                return BadRequest("'Cars' is null or UserId is null.");
+            }
+
+            if (!await _tripService.UserExists((int)car.UserId))
+            {
+                return NotFound("User ID not found");
             }
 
             var newCar = new Car()

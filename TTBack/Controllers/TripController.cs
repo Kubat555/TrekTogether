@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using TTBack.DTO;
 using TTBack.Interface;
 using TTBack.Models;
@@ -111,9 +112,19 @@ namespace TTBack.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> AddNewTrip([FromBody] TripDto TripDto)
         {
-            if (TripDto == null)
+            if (TripDto == null || TripDto.DriverId == null || TripDto.CarId == null )
             {
-                return BadRequest("Invalid data");
+                return BadRequest("Invalid data: Ты что то пропустил, может id водителя или машины");
+            }
+
+            if (!await _tripService.UserExists((int)TripDto.DriverId))
+            {
+                return NotFound("User ID not found");
+            }
+
+            if (!await _tripService.CarExists((int)TripDto.CarId))
+            {
+                return NotFound("Car ID not found");
             }
 
             var trip = new Trip

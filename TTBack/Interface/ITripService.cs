@@ -8,5 +8,7 @@ namespace TTBack.Interface
         Task AddNewTripAsync(Trip trip);
         Task AddUserToTripAsync(UserTrip userTrip);
         List<UserDto> GetUsersOfTrip(int tripId, int? driverId);
+        Task<bool> UserExists(int userId);
+        Task<bool> CarExists(int carId);
     }
 }

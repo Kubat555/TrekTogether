@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TTBack.DTO;
 using TTBack.Interface;
 using TTBack.Models;
@@ -40,6 +41,16 @@ namespace TTBack.Services
             }
 
             return result;
+        }
+
+        public async Task<bool> UserExists(int userId)
+        {
+            return await _context.Users.AnyAsync(u => u.Id == userId);
+        }
+
+        public async Task<bool> CarExists(int carId)
+        {
+            return await _context.Cars.AnyAsync(c => c.Id == carId);
         }
     }
 }
