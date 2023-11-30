@@ -158,6 +158,15 @@ namespace TTBack.Controllers
                 _context.UserTrips.Remove(userTrip);
                 await _context.SaveChangesAsync();
 
+                var trip = _context.Trips.FirstOrDefault(t => t.Id == tripId);
+   
+                if (trip == null)
+                {
+                    return NotFound("Trip not found");
+                }
+                trip.AvailableSeats++;
+                await _context.SaveChangesAsync();
+
                 return Ok("UserTrip deleted successfully");
             }
             catch (Exception ex)
