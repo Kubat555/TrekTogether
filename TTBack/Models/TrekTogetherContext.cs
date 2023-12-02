@@ -20,6 +20,7 @@ namespace TTBack.Models
         public virtual DbSet<Trip> Trips { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public DbSet<UserTrip> UserTrips { get; set; } = null!;
+        public DbSet<Review> Reviews { get; set; } = null!;
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

@@ -22,6 +22,24 @@ public class AuthController : ControllerBase
         _mapper = mapper;
     }
 
+    [HttpGet("getUserInfo/{userId}")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<UserInfoDto>))]
+    public IActionResult GetUserInfo(int userId)
+    {
+        if (_context.Users == null)
+        {
+            return BadRequest("Ошибка с базой данных при подключении!");
+        }
+        var user = _context.Users.Where(r => r.Id == userId).FirstOrDefault();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var result = _mapper.Map<UserInfoDto>(user);
+
+        return Ok(result);
+    }
+
     [HttpPost("register")]
     [ProducesResponseType(201)]
     public async Task<IActionResult> Register([FromBody] RegistrationDto registrationDto)
