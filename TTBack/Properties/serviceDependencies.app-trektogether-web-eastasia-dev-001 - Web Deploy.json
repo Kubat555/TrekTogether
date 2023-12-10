@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "apis1": {
+      "ignored": "true",
+      "type": "apis.azure"
+    },
+    "secrets1": {
+      "ignored": "true",
+      "type": "secrets",
+      "connectionId": null
+    }
+  }
+}

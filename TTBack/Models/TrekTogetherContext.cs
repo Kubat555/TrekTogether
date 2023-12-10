@@ -22,14 +22,7 @@ namespace TTBack.Models
         public DbSet<UserTrip> UserTrips { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer("");
-        //    }
-        //}
-        //Server=KUBAT;Database=TrekTogether;User=sa;Password=kubat555;
+ 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -108,6 +101,8 @@ namespace TTBack.Models
                     .WithMany(p => p.Trips)
                     .HasForeignKey(d => d.CarId)
                     .HasConstraintName("FK_Trip_Car");
+
+                entity.Property(t => t.IsCompleted).HasDefaultValue(false);
             });
 
             modelBuilder.Entity<User>(entity =>

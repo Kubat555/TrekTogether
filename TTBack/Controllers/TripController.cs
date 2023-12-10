@@ -76,7 +76,7 @@ namespace TTBack.Controllers
                 return NotFound();
             }
             var date = st.DepartureData.Date;
-            var trips = await _context.Trips.Where(t => t.DepartureCity == st.DepartureCity && t.ArrivalCity == st.ArrivalCity && t.DepartureData.Value.Date == date && t.AvailableSeats >= st.AvailableSeats).Include(t => t.Driver).Include(t => t.Car).ToListAsync();
+            var trips = await _context.Trips.Where(t => t.DepartureCity == st.DepartureCity && t.ArrivalCity == st.ArrivalCity && t.DepartureData.Value.Date == date && t.AvailableSeats >= st.AvailableSeats && t.IsCompleted == false).Include(t => t.Driver).Include(t => t.Car).ToListAsync();
             if (!ModelState.IsValid)
             {
                 return BadRequest();
@@ -135,7 +135,8 @@ namespace TTBack.Controllers
                 Price = TripDto.Price,
                 AvailableSeats = TripDto.AvailableSeats,
                 DriverId = TripDto.DriverId,
-                CarId = TripDto.CarId
+                CarId = TripDto.CarId,
+                IsCompleted = false
             };
 
             await _tripService.AddNewTripAsync(trip);
@@ -149,6 +150,26 @@ namespace TTBack.Controllers
             await _tripService.AddUserToTripAsync(userTrip);
 
             return Ok("Поездка успешно добавлена, работай Шизик!!");
+        }
+
+        [HttpPost("completeTrip/{id}")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> CompleteTrip(int id)
+        {
+            if (_context.Trips == null)
+            {
+                return BadRequest("Ошибка с базой данных при подключении!");
+            }
+            var trip = _context.Trips.Where(t => t.Id == id).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            trip.IsCompleted = true;
+            await _context.SaveChangesAsync();
+
+            return Ok("Поездка успешно завершена!");
         }
 
         [HttpDelete("deleteTrip/{id}")]
@@ -179,6 +200,7 @@ namespace TTBack.Controllers
             }
         }
 
+        
     }
 }
 
