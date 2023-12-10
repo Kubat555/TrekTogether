@@ -14,6 +14,7 @@ namespace TTBack.Models
         public int? AvailableSeats { get; set; }
         public int? DriverId { get; set; }
         public int? CarId { get; set; }
+        public bool IsCompleted { get; set; }
 
         [JsonIgnore]
         public ICollection<UserTrip> UserTrips { get; set; }
