@@ -12,8 +12,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 //var sqlConnection = builder.Configuration["ConnectionString:TTBack:SqlDb"];
-var sqlConnection = builder.Configuration.GetConnectionString("TTBack");
-builder.Services.AddSqlServer<TrekTogetherContext>(sqlConnection, options => options.EnableRetryOnFailure());
+var sqlConnection = builder.Configuration.GetConnectionString("RailwayPostgreSql");
+builder.Services.AddNpgsql<TrekTogetherContext>(sqlConnection, options => options.EnableRetryOnFailure());
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>

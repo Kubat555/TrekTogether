@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Education\\Поекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj": {}
+    "E:\\Education\\Проекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj": {}
   },
   "projects": {
-    "E:\\Education\\Поекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj": {
+    "E:\\Education\\Проекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Education\\Поекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj",
+        "projectUniqueName": "E:\\Education\\Проекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj",
         "projectName": "TTBack",
-        "projectPath": "E:\\Education\\Поекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj",
+        "projectPath": "E:\\Education\\Проекты\\TrekTogether\\TTBack\\TTBack\\TTBack.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "E:\\Education\\Поекты\\TrekTogether\\TTBack\\TTBack\\obj\\",
+        "outputPath": "E:\\Education\\Проекты\\TrekTogether\\TTBack\\TTBack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -61,25 +66,23 @@
               "target": "Package",
               "version": "[6.0.23, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.23, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.23, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.23, )"
+              "version": "[6.0.29, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.21.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.16, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.29, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -105,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
