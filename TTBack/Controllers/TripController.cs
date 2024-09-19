@@ -169,7 +169,7 @@ namespace TTBack.Controllers
             trip.IsCompleted = true;
             await _context.SaveChangesAsync();
 
-            return Ok("Поездка успешно завершена!");
+            return Ok(id);
         }
 
         [HttpDelete("deleteTrip/{id}")]

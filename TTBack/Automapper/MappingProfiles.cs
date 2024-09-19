@@ -13,6 +13,7 @@ namespace TTBack.Automapper
             CreateMap<Trip, TripDto>();
             CreateMap<Car, CarRegistrationDto>();
             CreateMap<User, UserInfoDto>();
+            CreateMap<Review, ReviewDto>();
         }
     }
 }

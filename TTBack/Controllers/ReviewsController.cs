@@ -39,20 +39,29 @@ namespace TTBack.Controllers
         }
 
         [HttpGet("getUserReviews/{userId}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Review>))]
-        public IActionResult GetUserReviews(int userId)
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ReviewDto>))]
+        public async Task<IActionResult> GetUserReviews(int userId)
         {
             if (_context.Reviews == null)
             {
                 return BadRequest("Ошибка с базой данных при подключении!");
             }
-            var reviews = _context.Reviews.Where(r => r.DriverId == userId).ToList();
+            var reviews = await _context.Reviews.Where(r => r.DriverId == userId).ToListAsync();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            return Ok(reviews);
+            var results = new List<ReviewDto>();
+            for (int i = 0; i < reviews.Count; i++)
+            {
+                var res = _mapper.Map<ReviewDto>(reviews[i]);
+                res.UserName = _context.Users.FirstOrDefault(u => u.Id == reviews[i].UserId).Name;
+                results.Add(res);
+            }
+
+            return Ok(results);
         }
 
         [HttpPost("addReview")]
